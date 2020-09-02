@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html' %}
 
-{% block title %} UI Tables {% endblock %} 
+{% block title %} UI Tables {% endblock %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -11,7 +11,7 @@
   <div class="col-md-12">
     <div class="card ">
       <div class="card-header">
-        <h4 class="card-title"> Simple Table</h4>
+        <h4 class="card-title"> Personel</h4>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -22,7 +22,7 @@
                   Name
                 </th>
                 <th>
-                  Country
+                  Class
                 </th>
                 <th>
                   City
@@ -140,8 +140,18 @@
   <div class="col-md-12">
     <div class="card  card-plain">
       <div class="card-header">
-        <h4 class="card-title"> Table on Plain Background</h4>
-        <p class="category"> Here is a subtitle for this table</p>
+        <h4 class="card-title"> Crew</h4>
+        <p class="category"> Make new crew</p>                <div class="col-sm-6">
+                        <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                          <label class="btn btn-sm btn-primary btn-simple active" id="0">
+                            <input type="radio" name="options" checked>
+                            <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">New crew</span>
+                            <span class="d-block d-sm-none">
+                              <i class="tim-icons icon-single-02"></i>
+                            </span>
+                          </label>
+                        </div>
+                      </div>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -149,116 +159,75 @@
             <thead class=" text-primary">
               <tr>
                 <th>
-                  Name
+                  ID
                 </th>
                 <th>
-                  Country
+                  ID Vehicle
                 </th>
                 <th>
-                  City
+                  Number of Assignments
                 </th>
                 <th class="text-center">
-                  Salary
+                  Number of crew Members
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>
-                  Dakota Rice
+                  A32
                 </td>
                 <td>
-                  Niger
+                  2
                 </td>
                 <td>
-                  Oud-Turnhout
+                  2
                 </td>
                 <td class="text-center">
-                  $36,738
+                  6
+                </td>
+                <td class="td-actions text-right">
+                  <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                    <i class="tim-icons icon-pencil"></i>
+                  </button>
                 </td>
               </tr>
               <tr>
                 <td>
-                  Minerva Hooper
+                  A12
                 </td>
                 <td>
-                  Curaçao
+                  1
                 </td>
                 <td>
-                  Sinaai-Waas
+                  8
                 </td>
                 <td class="text-center">
-                  $23,789
+                  8
+                </td>
+                <td class="td-actions text-right">
+                  <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                    <i class="tim-icons icon-pencil"></i>
+                  </button>
                 </td>
               </tr>
               <tr>
                 <td>
-                  Sage Rodriguez
+                  A93
                 </td>
                 <td>
-                  Netherlands
+                  5
                 </td>
                 <td>
-                  Baileux
+                  3
                 </td>
                 <td class="text-center">
-                  $56,142
+                  3
                 </td>
-              </tr>
-              <tr>
-                <td>
-                  Philip Chaney
-                </td>
-                <td>
-                  Korea, South
-                </td>
-                <td>
-                  Overland Park
-                </td>
-                <td class="text-center">
-                  $38,735
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Doris Greene
-                </td>
-                <td>
-                  Malawi
-                </td>
-                <td>
-                  Feldkirchen in Kärnten
-                </td>
-                <td class="text-center">
-                  $63,542
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Mason Porter
-                </td>
-                <td>
-                  Chile
-                </td>
-                <td>
-                  Gloucester
-                </td>
-                <td class="text-center">
-                  $78,615
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Jon Porter
-                </td>
-                <td>
-                  Portugal
-                </td>
-                <td>
-                  Gloucester
-                </td>
-                <td class="text-center">
-                  $98,615
+                <td class="td-actions text-right">
+                  <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                    <i class="tim-icons icon-pencil"></i>
+                  </button>
                 </td>
               </tr>
             </tbody>

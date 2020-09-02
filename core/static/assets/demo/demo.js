@@ -99,7 +99,7 @@ demo = {
           fill: true,
           backgroundColor: gradientFill,
           borderWidth: 2,
-          data: [542, 480, 430, 550, 530, 453, 380, 434, 568, 610, 700, 630]
+          data: [100, 100, 100, 100, 100, 453, 380, 434, 568, 610, 700, 630]
         }]
       },
       options: gradientChartOptionsConfiguration
@@ -424,7 +424,7 @@ demo = {
 
 
     var chart_labels = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-    var chart_data = [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100];
+    var chart_data = [100, 100, 99, 100, 200, 60, 75, 60, 90, 80, 110, 100];
 
 
     var ctx = document.getElementById("chartBig1").getContext('2d');
@@ -517,7 +517,7 @@ demo = {
   },
 
   initGoogleMaps: function() {
-    var myLatlng = new google.maps.LatLng(40.748817, -73.985428);
+    var myLatlng = new google.maps.LatLng(37.963614,23.515375);
     var mapOptions = {
       zoom: 13,
       center: myLatlng,
@@ -718,8 +718,16 @@ demo = {
       title: "Hello World!"
     });
 
+    var home = new google.maps.LatLng(37.964215,23.490986);
+    var marker1 = new google.maps.Marker({
+      position: home,
+      title: "Hello Home!"
+    });
+
+
     // To add the marker to the map, call setMap();
     marker.setMap(map);
+    marker1.setMap(map);
   },
 
   showNotification: function(from, align) {

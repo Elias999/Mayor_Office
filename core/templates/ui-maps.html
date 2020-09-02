@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html' %}
 
-{% block title %} Maps {% endblock %} 
+{% block title %} Maps {% endblock %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -25,11 +25,18 @@
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
 
+<script
+     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9en-5OWpW6wlUQ1B7nkjaKpiWDJD7aco&callback=initMap&libraries=&v=weekly"
+     defer
+   >
+ </script>
+
+
 <script>
   $(document).ready(function() {
     // Javascript method's body can be found in assets/js/demos.js
     demo.initGoogleMaps();
   });
 </script>
-  
+
 {% endblock javascripts %}

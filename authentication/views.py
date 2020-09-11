@@ -12,11 +12,11 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.forms.utils import ErrorList
 from django.http import HttpResponse
-from .forms import LoginForm, SignUpForm
+from .forms import LoginForm, SignUpForm , ComplainForm
 
 def login_view(request):
     form = LoginForm(request.POST or None)
-
+    complainform = ComplainForm()
     msg = None
 
     if request.method == "POST":
@@ -28,12 +28,12 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 return redirect("/")
-            else:    
-                msg = 'Invalid credentials'    
+            else:
+                msg = 'Invalid credentials'
         else:
-            msg = 'Error validating the form'    
+            msg = 'Error validating the form'
 
-    return render(request, "accounts/login.html", {"form": form, "msg" : msg})
+    return render(request, "accounts/login.html", {"complainform": complainform, "form": form, "msg" : msg})
 
 def register_user(request):
 
@@ -50,11 +50,11 @@ def register_user(request):
 
             msg     = 'User created.'
             success = True
-            
+
             #return redirect("/login/")
 
         else:
-            msg = 'Form is not valid'    
+            msg = 'Form is not valid'
     else:
         form = SignUpForm()
 

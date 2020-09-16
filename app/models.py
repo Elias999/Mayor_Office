@@ -1,3 +1,6 @@
+from django.db import models as models
+from django.contrib.auth import models as auth_models
+from django_extensions.db import fields as extension_fields
 from django.urls import reverse
 from django_extensions.db.fields import AutoSlugField
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -6,14 +9,11 @@ from django.db.models import CharField
 from django.db.models import DateTimeField
 from django.db.models import TextField
 from django.db.models import UUIDField
-from django_extensions.db.fields import AutoSlugField
 from django.conf import settings
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
-from django.contrib.auth import models as auth_models
-from django.db import models as models
-from django_extensions.db import fields as extension_fields
+from django_extensions.db.fields import AutoSlugField
 import uuid
 
 class complain(models.Model):
@@ -25,7 +25,7 @@ class complain(models.Model):
     resolved = models.BooleanField(default='False')
     infrastructure_id = models.ForeignKey("infrastructure", on_delete=models.CASCADE)
     notes = models.TextField(max_length=300)
-    resolve_date = models.DateTimeField()
+    resolve_date = models.DateTimeField(blank = True,null = True)
 
 
     class Meta:

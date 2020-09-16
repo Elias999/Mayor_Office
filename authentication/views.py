@@ -13,27 +13,41 @@ from django.contrib.auth.models import User
 from django.forms.utils import ErrorList
 from django.http import HttpResponse
 from .forms import LoginForm, SignUpForm , ComplainForm
+from app.models import complain,infrastructure
 
 def login_view(request):
     form = LoginForm(request.POST or None)
-    complainform = ComplainForm()
     msg = None
+    msgproblem = None
+    complainform = ComplainForm(request.POST or None)
 
     if request.method == "POST":
-
-        if form.is_valid():
-            username = form.cleaned_data.get("username")
-            password = form.cleaned_data.get("password")
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect("/")
+        if 'complaining' in request.POST:
+            if complainform.is_valid():
+                afm = complainform.cleaned_data.get("afm")
+                inf_id = complainform.cleaned_data.get("infrastructure")
+                notes = complainform.cleaned_data.get("notes")
+                try:
+                    complain.objects.create(made_afm = afm, infrastructure_id = infrastructure.objects.get(UUID = inf_id ), notes = notes)
+                    msgproblem = 'Yor Complain have been send'
+                except Exception as e:
+                    msgproblem = 'Yor Complain have NOT been send,check the info you have provide'
             else:
-                msg = 'Invalid credentials'
+                msgproblem = 'Yor Complain have NOT been send,check the info you have provide'
         else:
-            msg = 'Error validating the form'
+            if form.is_valid():
+                username = form.cleaned_data.get("username")
+                password = form.cleaned_data.get("password")
+                user = authenticate(username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    return redirect("/")
+                else:
+                    msg = 'Invalid credentials'
+            else:
+                msg = 'Error validating the form'
 
-    return render(request, "accounts/login.html", {"complainform": complainform, "form": form, "msg" : msg})
+    return render(request, "accounts/login.html", {"complainform": complainform, "form": form, "msg" : msg,"msgproblem" : msgproblem})
 
 def register_user(request):
 

@@ -69,14 +69,17 @@
           <div class="card">
 
             <form role="form" method="post" action="">
-
               {% csrf_token %}
+
+
 
               <div class="card-header">
                 <h5 class="title">Report Problem</h5>
 
               </div>
-
+              {% if msgproblem %}
+                <span class="text-danger">{{ msgproblem }}</span>
+              {% endif %}
               <div class="card-body">
 
                   <div class="row">

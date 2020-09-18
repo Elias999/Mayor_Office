@@ -76,7 +76,7 @@ class crew(models.Model):
     working_hours = models.CharField(max_length=30)
     crew_members = models.TextField(max_length=30)
     complains_id = models.TextField(max_length=330)
-
+    total_assigments = models.CharField(max_length=6)
 
     class Meta:
         ordering = ('-created',)

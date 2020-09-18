@@ -9,7 +9,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse
 from django import template
-from app.models import personel , complain
+from app.models import personel , complain , crew
 from .forms import NewCrew
 
 @login_required(login_url="/login/")
@@ -24,13 +24,28 @@ def pages(request):
     crewform = NewCrew(request.POST or None)
     # All resource paths end in .html.
     # Pick out the html file name from the url. And load that template.
+    if 'newcrew' in request.POST:
+        if crewform.is_valid():
+            name = crewform.cleaned_data.get("name")
+            working_hours = crewform.cleaned_data.get("working_hours")
+            crew_members = crewform.cleaned_data.get("crew_members")
+            complains_id = crewform.cleaned_data.get("complains_id")
+            total = complains_id.count(",") + 1
+            try:
+                crew.objects.create(name = name, working_hours = working_hours, crew_members = crew_members,complains_id=complains_id,total_assigments = total )
+                msgproblem = 'New crew added'
+            except Exception as e:
+                    msgproblem = 'No new crew' + e
+        else:
+            msgproblem = 'No new crew'
     try:
 
         load_template = request.path.split('/')[-1]
         html_template = loader.get_template( load_template )
         if "ui-tables.html" in request.path:
+            crew_table = crew.objects.all()
             personel_table = personel.objects.all()
-            context = { "table" : personel_table}
+            context = { "table" : personel_table , "crewtable" : crew_table }
         if "crew_add.html" in request.path:
             complain_table = complain.objects.all()
             personel_table = personel.objects.all()

@@ -71,32 +71,33 @@
             <thead class=" text-primary">
               <tr>
                 <th>
-                  ID
+                  Name
                 </th>
                 <th>
-                  ID Vehicle
+                  Working Hours
                 </th>
                 <th>
                   Number of Assignments
                 </th>
                 <th class="text-center">
-                  Number of crew Members
+                  Crew Member
                 </th>
               </tr>
             </thead>
             <tbody>
+            {% for crew in crewtable %}
               <tr>
                 <td>
-                  A32
+                  {{crew.name}}
                 </td>
                 <td>
-                  2
+                  {{crew.working_hours}}
                 </td>
                 <td>
-                  2
+                  {{ crew.total_assigments}}
                 </td>
                 <td class="text-center">
-                  6
+                  {{crew.crew_members}}
                 </td>
                 <td class="td-actions text-right">
                   <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
@@ -104,44 +105,7 @@
                   </button>
                 </td>
               </tr>
-              <tr>
-                <td>
-                  A12
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  8
-                </td>
-                <td class="text-center">
-                  8
-                </td>
-                <td class="td-actions text-right">
-                  <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                    <i class="tim-icons icon-pencil"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  A93
-                </td>
-                <td>
-                  5
-                </td>
-                <td>
-                  3
-                </td>
-                <td class="text-center">
-                  3
-                </td>
-                <td class="td-actions text-right">
-                  <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                    <i class="tim-icons icon-pencil"></i>
-                  </button>
-                </td>
-              </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>

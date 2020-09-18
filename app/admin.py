@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from .models import complain, infrastructure, crew
+from .models import complain, infrastructure, crew , personel
 
 class complainAdminForm(forms.ModelForm):
 
@@ -45,3 +45,18 @@ class crewAdmin(admin.ModelAdmin):
     readonly_fields = [ 'UUID', 'created', 'last_updated']
 
 admin.site.register(crew, crewAdmin)
+
+
+class personelAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = personel
+        fields = '__all__'
+
+
+class personelAdmin(admin.ModelAdmin):
+    form = personelAdminForm
+    list_display = ['name', 'specialization', 'hired', 'salary']
+    readonly_fields = ['hired']
+
+admin.site.register(personel, personelAdmin)

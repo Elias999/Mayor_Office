@@ -90,3 +90,25 @@ class crew(models.Model):
 
     def get_update_url(self):
         return reverse('app_crew_update', args=(self.pk,))
+
+
+class personel(models.Model):
+
+    # Fields
+    name = models.CharField(max_length=40)
+    specialization = models.CharField(max_length=9)
+    hired = models.DateTimeField(auto_now_add=True, editable=False)
+    salary = models.CharField(max_length=8)
+
+
+
+    class Meta:
+        ordering = ('-hired',)
+
+
+    def get_absolute_url(self):
+        return reverse('app_personel_detail', args=(self.slug,))
+
+
+    def get_update_url(self):
+        return reverse('app_personel_update', args=(self.slug,))

@@ -1,0 +1,174 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Crew {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+
+<div class="col-md-12">
+  <div class="card ">
+    <div class="card-header">
+      <h4 class="card-title"> Complains</h4>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table tablesorter " id="">
+          <thead class=" text-primary">
+            <tr>
+              <th>
+                ID
+              </th>
+              <th>
+                Created
+              </th>
+              <th>
+                Notes
+              </th>
+          </thead>
+          <tbody>
+            {% for row in comptable %}
+            <tr>
+              <td>
+                {{row.slug}}
+              </td>
+              <td>
+                {{row.created}}
+              </td>
+              <td>
+                {{row.notes}}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12">
+  <div class="card ">
+    <div class="card-header">
+      <h4 class="card-title"> Personel</h4>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table tablesorter " id="">
+          <thead class=" text-primary">
+            <tr>
+              <th>
+                Name
+              </th>
+              <th>
+                Class
+              </th>
+              <th>
+                Hired
+              </th>
+              <th class="text-center">
+                Salary
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in pertable %}
+            <tr>
+              <td>
+                {{row.name}}
+              </td>
+              <td>
+                {{row.specialization}}
+              </td>
+              <td>
+                {{row.hired}}
+              </td>
+              <td class="text-center">
+                {{row.salary}} $
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row1">
+  <div class="col-md-8">
+    <div class="card">
+    <form role="form" method="post" action="">
+      {% csrf_token %}
+
+
+
+      <div class="card-header">
+        <h5 class="title">Add a new Crew</h5>
+
+      </div>
+      {% if msgproblem %}
+        <span class="text-danger">{{ msgproblem }}</span>
+      {% endif %}
+      <div class="card-body">
+
+          <div class="row">
+
+            <div class="col-md-3 px-md-1">
+              <div class="form-group">
+                <label>Name</label>
+                {{ crewform.name }}
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col-md-3 px-md-1">
+              <div class="form-group">
+                <label>Working Hours</label>
+                {{ crewform.working_hours }}
+              </div>
+            </div>
+          </div>
+
+            <div class="row">
+            <div class="col-md-3 px-md-1">
+              <div class="form-group">
+                <label>Crew Member</label>
+                {{ crewform.crew_members }}
+              </div>
+            </div>
+          </div>
+
+                      <div class="row">
+                      <div class="col-md-3 px-md-1">
+                        <div class="form-group">
+                          <label>Complains ID with commas</label>
+                          {{ crewform.complains_id }}
+                        </div>
+                      </div>
+                    </div>
+
+      </div>
+      <div class="card-footer">
+        <button type="submit" name="complaining" class="btn btn-fill btn-primary">Sumbit</button>
+        &nbsp; &nbsp;
+      </div>
+
+    </form>
+  </div>
+</div>
+</div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+
+{% block javascripts %}
+
+{% endblock javascripts %}

@@ -26,9 +26,16 @@
 # [TODO list]
 - [ ] Enable editing and Delete crews
 - [ ] Statics
-- [ ] Populate index
-- [ ] Andoid connection
+- [ ] Populate index.html
 - [ ] Map
-- [ ] Notifications??
 - [ ] Notes on index
+- [ ] Notifications ??
 - [ ] Add Costs ideas?
+-----
+- [ ] Andoid connection
+- [ ] Andoid requests
+- [ ] Andoid respond with json
+- [ ] Andoid login crew
+- [ ] Andoid send complains
+- [ ] Andoid crew information
+-------

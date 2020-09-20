@@ -24,9 +24,10 @@
 # Mayor_Office
 
 # [TODO list]
-- [ ] Enable editing and Delete crews
+- [-] Enable editing and Delete crews
+- [ ] Enable editing
 - [ ] Statics
-- [ ] Populate index.html
+- [-] Populate index.html not all
 - [ ] Map
 - [ ] Notes on index
 - [ ] Notifications ??

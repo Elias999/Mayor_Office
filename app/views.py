@@ -3,18 +3,30 @@
 License: MIT
 Copyright (c) 2019 - present AppSeed.us
 """
+from datetime import date
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse
 from django import template
+from app import Populate
 from app.models import personel , complain , crew
 from .forms import NewCrew
 
 @login_required(login_url="/login/")
 def index(request):
-    return render(request, "index.html")
+    context = {}
+    populating = Populate.Populate("index")
+    # data send it
+    lastweekdays = populating.lastweek().get('days')
+    lastweek = populating.lastweek().get('count')
+    total = populating.count_incid()
+    resolved = populating.lastweek_resolved().get('count')
+    un_complain_table = complain.objects.filter(resolved=False)
+
+    context = {"lastweek" : lastweek , "lastdays" : lastweekdays , "total" : total, "resolved" : resolved , "unresolved" : un_complain_table }
+    return render(request, "index.html" ,context)
 
 @login_required(login_url="/login/")
 def pages(request):
@@ -24,6 +36,7 @@ def pages(request):
     crewform = NewCrew(request.POST or None)
     # All resource paths end in .html.
     # Pick out the html file name from the url. And load that template.
+
     if 'newcrew' in request.POST:
         if crewform.is_valid():
             name = crewform.cleaned_data.get("name")
@@ -31,6 +44,7 @@ def pages(request):
             crew_members = crewform.cleaned_data.get("crew_members")
             complains_id = crewform.cleaned_data.get("complains_id")
             total = complains_id.count(",") + 1
+            48
             try:
                 crew.objects.create(name = name, working_hours = working_hours, crew_members = crew_members,complains_id=complains_id,total_assigments = total )
                 msgproblem = 'New crew added'
@@ -47,7 +61,7 @@ def pages(request):
             personel_table = personel.objects.all()
             context = { "table" : personel_table , "crewtable" : crew_table }
         if "crew_add.html" in request.path:
-            complain_table = complain.objects.all()
+            complain_table = complain.objects.filter(resolved=False)
             personel_table = personel.objects.all()
             context = { "comptable" : complain_table , "crewform" : crewform ,"msgproblem" : msgproblem, "pertable" : personel_table }
         return HttpResponse(html_template.render(context, request))
@@ -79,6 +93,20 @@ def forms(request):
         return HttpResponse(html_template.render(context, request))
 
 
-def api(request):
+
+@login_required(login_url="/login/")
+def deletecrew(request):
     context = {}
-    return HttpResponse("Success", content_type='text/plain')
+    crew.objects.filter(UUID = request.GET.get('crew', '')).delete()
+    return  redirect('/ui-tables.html')
+
+def api(request):
+    send = {}
+    count = []
+    days = []
+    today_date = date.today()
+    for i in range(1,8):
+        forming = today_date.day - i
+        forming = str(forming) + '/' + str(today_date.month)
+        days.append( forming )
+    return HttpResponse(str(days))

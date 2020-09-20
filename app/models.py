@@ -2,9 +2,9 @@ from django.db import models as models
 from django.contrib.auth import models as auth_models
 from django_extensions.db import fields as extension_fields
 from django.urls import reverse
-from django_extensions.db.fields import AutoSlugField
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db.models import BooleanField
+from django.db.models import AutoField
 from django.db.models import CharField
 from django.db.models import DateTimeField
 from django.db.models import TextField
@@ -13,13 +13,14 @@ from django.conf import settings
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
-from django_extensions.db.fields import AutoSlugField
 import uuid
+from autoslug import AutoSlugField
 
 class complain(models.Model):
 
     # Fields
-    slug = extension_fields.AutoSlugField(populate_from='id',max_length=255,unique=True)
+    slug = models.AutoField(primary_key=True)
+    slug_ref = AutoSlugField(populate_from="slug")
     made_afm = models.CharField(max_length=9)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     resolved = models.BooleanField(default='False')
@@ -71,6 +72,7 @@ class crew(models.Model):
     # Fields
     name = models.CharField(max_length=255)
     UUID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    slug_ref = AutoSlugField(populate_from="UUID")
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     working_hours = models.CharField(max_length=30)

@@ -31,7 +31,7 @@ def login_view(request):
                     complain.objects.create(made_afm = afm, infrastructure_id = infrastructure.objects.get(UUID = inf_id ), notes = notes)
                     msgproblem = 'Yor Complain have been send'
                 except Exception as e:
-                    msgproblem = 'Yor Complain have NOT been send,check the info you have provide'
+                    msgproblem =  e
             else:
                 msgproblem = 'Yor Complain have NOT been send,check the info you have provide'
         else:

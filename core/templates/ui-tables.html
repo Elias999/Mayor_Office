@@ -99,10 +99,18 @@
                 <td class="text-center">
                   {{crew.crew_members}}
                 </td>
-                <td class="td-actions text-right">
-                  <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                    <i class="tim-icons icon-pencil"></i>
+                <td name="UUID" style="display:none;">
+                  {{crew.UUID}}
+                </td>
+                <td class="text-right">
+                  <button type="submit" rel="tooltip" title="Edit Crew" class="btn btn-link" data-original-title="Edit Crew"  >
+                    <a href="/edit?crew={{ crew.UUID }}"> <i class="fa fa-trash"> </i></a>
                   </button>
+                </td>
+                <td class="td-actions text-right">
+                    <button type="submit" rel="tooltip" name="Delete_crew" class="btn btn-link" data-original-title="Delete Crew"  >
+                      <a href="/delete?crew={{ crew.UUID }}"> <i class="fa fa-trash"> </i></a>
+                    </button>
                 </td>
               </tr>
               {% endfor %}

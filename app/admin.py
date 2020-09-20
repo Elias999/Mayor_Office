@@ -11,7 +11,7 @@ class complainAdminForm(forms.ModelForm):
 
 class complainAdmin(admin.ModelAdmin):
     form = complainAdminForm
-    list_display = ['slug', 'made_afm', 'created', 'resolved', 'infrastructure_id', 'notes', 'resolve_date']
+    list_display = ['slug','slug_ref' ,  'made_afm', 'created', 'resolved', 'infrastructure_id', 'notes', 'resolve_date']
     readonly_fields = ['slug', 'made_afm', 'created',  ]
 
 admin.site.register(complain, complainAdmin)
@@ -41,7 +41,7 @@ class crewAdminForm(forms.ModelForm):
 
 class crewAdmin(admin.ModelAdmin):
     form = crewAdminForm
-    list_display = ['name', 'UUID', 'created', 'last_updated', 'working_hours', 'crew_members', 'complains_id']
+    list_display = ['name', 'slug_ref' , 'UUID', 'created', 'last_updated', 'working_hours', 'crew_members', 'complains_id']
     readonly_fields = [ 'UUID', 'created', 'last_updated']
 
 admin.site.register(crew, crewAdmin)

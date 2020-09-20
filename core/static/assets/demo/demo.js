@@ -99,14 +99,14 @@ demo = {
           fill: true,
           backgroundColor: gradientFill,
           borderWidth: 2,
-          data: [100, 100, 100, 100, 100, 453, 380, 434, 568, 610, 700, 630]
+          data: [0, 10, 10, 11, 21, 30, 38, 43, 16, 10, 7, 6]
         }]
       },
       options: gradientChartOptionsConfiguration
     });
   },
 
-  initDashboardPageCharts: function() {
+  initDashboardPageCharts: function(lastweekval, lastdays ,totalval,resolvedval) {
 
     gradientChartOptionsConfigurationWithTooltipBlue = {
       maintainAspectRatio: false,
@@ -182,10 +182,60 @@ demo = {
             zeroLineColor: "transparent",
           },
           ticks: {
-            suggestedMin: 60,
-            suggestedMax: 125,
+            suggestedMin: 10,
+            suggestedMax: 100,
             padding: 20,
             fontColor: "#9a9a9a"
+          }
+        }],
+
+        xAxes: [{
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: 'rgba(225,78,202,0.1)',
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            padding: 20,
+            fontColor: "#9a9a9a"
+          }
+        }]
+      }
+    };
+
+
+    lilgradientChartOptionsConfigurationWithTooltipPurple = {
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      },
+
+      tooltips: {
+        backgroundColor: '#f5f5f5',
+        titleFontColor: '#333',
+        bodyFontColor: '#666',
+        bodySpacing: 4,
+        xPadding: 12,
+        mode: "nearest",
+        intersect: 0,
+        position: "nearest"
+      },
+      responsive: true,
+      scales: {
+        yAxes: [{
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: 'rgba(29,140,248,0.0)',
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            suggestedMin: 0,
+            suggestedMax: 20,
+            padding: 20,
+            fontColor: "#9a9a9a",
+            stepSize: 5
           }
         }],
 
@@ -278,8 +328,8 @@ demo = {
             zeroLineColor: "transparent",
           },
           ticks: {
-            suggestedMin: 50,
-            suggestedMax: 125,
+            suggestedMin: 0,
+            suggestedMax: 10,
             padding: 20,
             fontColor: "#9e9e9e"
           }
@@ -358,9 +408,9 @@ demo = {
     gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
 
     var data = {
-      labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+      labels: lastdays,
       datasets: [{
-        label: "Data",
+        label: "Incidents",
         fill: true,
         backgroundColor: gradientStroke,
         borderColor: '#d048b6',
@@ -374,14 +424,14 @@ demo = {
         pointHoverRadius: 4,
         pointHoverBorderWidth: 15,
         pointRadius: 4,
-        data: [80, 100, 70, 80, 120, 80],
+        data: lastweekval,
       }]
     };
 
-    var myChart = new Chart(ctx, {
+    var lastweek = new Chart(ctx, {
       type: 'line',
       data: data,
-      options: gradientChartOptionsConfigurationWithTooltipPurple
+      options: lilgradientChartOptionsConfigurationWithTooltipPurple
     });
 
 
@@ -394,9 +444,9 @@ demo = {
     gradientStroke.addColorStop(0, 'rgba(66,134,121,0)'); //green colors
 
     var data = {
-      labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV'],
+      labels: lastdays,
       datasets: [{
-        label: "My First dataset",
+        label: "Unresolved",
         fill: true,
         backgroundColor: gradientStroke,
         borderColor: '#00d6b4',
@@ -410,11 +460,11 @@ demo = {
         pointHoverRadius: 4,
         pointHoverBorderWidth: 15,
         pointRadius: 4,
-        data: [90, 27, 60, 12, 80],
+        data: resolvedval,
       }]
     };
 
-    var myChart = new Chart(ctxGreen, {
+    var resolved = new Chart(ctxGreen, {
       type: 'line',
       data: data,
       options: gradientChartOptionsConfigurationWithTooltipGreen
@@ -424,7 +474,7 @@ demo = {
 
 
     var chart_labels = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-    var chart_data = [100, 100, 99, 100, 200, 60, 75, 60, 90, 80, 110, 100];
+    var chart_data = totalval;
 
 
     var ctx = document.getElementById("chartBig1").getContext('2d');
@@ -439,7 +489,7 @@ demo = {
       data: {
         labels: chart_labels,
         datasets: [{
-          label: "My First dataset",
+          label: "Incidents",
           fill: true,
           backgroundColor: gradientStroke,
           borderColor: '#d346b1',
@@ -458,7 +508,7 @@ demo = {
       },
       options: gradientChartOptionsConfigurationWithTooltipPurple
     };
-    var myChartData = new Chart(ctx, config);
+    var total = new Chart(ctx, config);
     $("#0").click(function() {
       var data = myChartData.config.data;
       data.datasets[0].data = chart_data;
@@ -491,7 +541,7 @@ demo = {
     gradientStroke.addColorStop(0, 'rgba(29,140,248,0)'); //blue colors
 
 
-    var myChart = new Chart(ctx, {
+    var cost = new Chart(ctx, {
       type: 'bar',
       responsive: true,
       legend: {

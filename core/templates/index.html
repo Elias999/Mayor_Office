@@ -261,48 +261,34 @@
                     <th>
                       ID
                     </th>
-                    <th>
-                      Country
+                    <th class="text-left">
+                      Problem At
                     </th>
-                    <th>
-                      Location
+                    <th class="text-left">
+                      Reported At
                     </th>
                     <th class="text-center">
-                      Reported At
+                      Notes
                     </th>
                   </tr>
                 </thead>
                 <tbody>
+                {% for row in unresolved %}
                   <tr>
                     <td>
-                      Dakota Rice
+                    {{  row.slug}}
                     </td>
                     <td>
-                      Niger
+                    {{  row.infrastructure_id | cut:"infrastructure object"}}
+                    </td>
+                    <td class="text-left">
+                      {{row.created}}
                     </td>
                     <td>
-                      Oud-Turnhout
-                    </td>
-                    <td class="text-center">
-                      $36,738
+                      {{  row.notes | slice:":38"}}
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      Minerva Hooper
-                    </td>
-                    <td>
-                      Curaçao
-                    </td>
-                    <td>
-                      Sinaai-Waas
-                    </td>
-                    <td class="text-center">
-                      $23,789
-                    </td>
-                  </tr>
-                  <tr>
-
+                {% endfor %}
                 </tbody>
               </table>
             </div>
@@ -310,7 +296,7 @@
         </div>
       </div>
     </div>
-
+    {{values}}
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
@@ -319,7 +305,7 @@
   <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
-      demo.initDashboardPageCharts();
+      demo.initDashboardPageCharts( {{ lastweek }}, {{lastdays}} , {{ total }} , {{resolved}}  );
 
     });
   </script>

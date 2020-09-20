@@ -6,6 +6,8 @@ Copyright (c) 2019 - present AppSeed.us
 
 from django.urls import path, re_path
 from app import views
+from django.conf.urls import url
+
 
 urlpatterns = [
     # Matches any html file
@@ -15,4 +17,5 @@ urlpatterns = [
     path('', views.index, name='home'),
     path('api', views.api, name='api'),
     path('complain.html', views.forms, name='forms'),
+    re_path(r'^delete/', views.deletecrew, name='delete_view'),
 ]

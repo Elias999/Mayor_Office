@@ -17,5 +17,5 @@ urlpatterns = [
     path('', views.index, name='home'),
     path('api', views.api, name='api'),
     path('complain.html', views.forms, name='forms'),
-    re_path(r'^delete/', views.deletecrew, name='delete_view'),
+    re_path(r'^delete/', views.delete, name='delete'),
 ]

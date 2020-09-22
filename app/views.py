@@ -11,21 +11,35 @@ from django.template import loader
 from django.http import HttpResponse
 from django import template
 from app import Populate
-from app.models import personel , complain , crew
-from .forms import NewCrew
+from app.models import personel , complain , crew , task
+from .forms import NewCrew , NewTask
 
 @login_required(login_url="/login/")
 def index(request):
     context = {}
     populating = Populate.Populate("index")
+    taskform = NewTask(request.POST or None)
+
+    if 'newtask' in request.POST:
+        if taskform.is_valid():
+            title = taskform.cleaned_data.get("title")
+            text = taskform.cleaned_data.get("text")
+        try:
+            task.objects.create(title = title, text = text )
+            msgproblem = 'New Task added'
+        except Exception as e:
+                msgproblem = 'No task added' + e
+    else:
+        msgproblem = 'No task added'
     # data send it
     lastweekdays = populating.lastweek().get('days')
     lastweek = populating.lastweek().get('count')
     total = populating.count_incid()
     resolved = populating.lastweek_resolved().get('count')
     un_complain_table = complain.objects.filter(resolved=False)
+    task_table = task.objects.all()
 
-    context = {"lastweek" : lastweek , "lastdays" : lastweekdays , "total" : total, "resolved" : resolved , "unresolved" : un_complain_table }
+    context = {"lastweek" : lastweek , "lastdays" : lastweekdays , "total" : total, "resolved" : resolved , "unresolved" : un_complain_table , "task_table" : task_table , "NewTask" : taskform}
     return render(request, "index.html" ,context)
 
 @login_required(login_url="/login/")
@@ -95,10 +109,16 @@ def forms(request):
 
 
 @login_required(login_url="/login/")
-def deletecrew(request):
-    context = {}
-    crew.objects.filter(UUID = request.GET.get('crew', '')).delete()
-    return  redirect('/ui-tables.html')
+def delete(request):
+
+    if "task" in request.GET:
+        context = {}
+        task.objects.filter(id = request.GET.get('task', '')).delete()
+        return  redirect('/')
+    else:
+        context = {}
+        crew.objects.filter(UUID = request.GET.get('crew', '')).delete()
+        return  redirect('/ui-tables.html')
 
 def api(request):
     send = {}

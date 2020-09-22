@@ -100,7 +100,27 @@
         <div class="card card-tasks">
           <div class="card-header ">
             <h6 class="title d-inline">Tasks(5)</h6>
-            <a class="card-category d-inline" href='https://google.com'> New task</a>
+            <input id="dynamic" class="card-category d-inline" type="button" value="Add new Task" ; onclick = "Openform();">
+
+
+                <div id = "form1" style = "display:none">
+                  <form  id="formirri" method="post" action="." target="_parent">
+                          {% csrf_token %}
+                          {% if msgproblem %}
+                            <span class="text-danger">{{ msgproblem }}</span>
+                          {% endif %}
+                      <div id="demo">
+                        <label>Title</label>
+                        {{ NewTask.title }}
+                        <label> Text  </label>
+                        {{ NewTask.text }}
+                        <button type="submit" name="newtask" class="btn btn-fill btn-primary">Sumbit</button>
+                      </div>
+                  </form>
+                </div>
+
+
+
             <div class="dropdown">
               <button type="button" class="btn btn-link dropdown-toggle btn-icon" data-toggle="dropdown">
                 <i class="tim-icons icon-settings-gear-63"></i>
@@ -116,138 +136,42 @@
             <div class="table-full-width table-responsive">
               <table class="table">
                 <tbody>
+                  {% for row in task_table %}
                   <tr>
                     <td>
                       <div class="form-check">
                         <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" value="">
+                          <input class="form-check-input" type="checkbox" value="" checked>
                           <span class="form-check-sign">
-                            <span class="check"></span>
+                            <span class="check"> </span>
                           </span>
                         </label>
                       </div>
                     </td>
                     <td>
-                      <p class="title">Update the Documentation</p>
-                      <p class="text-muted">Dwuamish Head, Seattle, WA 8:47 AM</p>
+                      <p class="title">{{row.title}}</p>
+                      <p class="text-muted">{{row.text}}</p>
                     </td>
                     <td class="td-actions text-right">
                       <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                        <i class="tim-icons icon-pencil"></i>
+                        <i class="tim-icons icon-pencil"> </i>
                       </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-check">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" value="" checked="">
-                          <span class="form-check-sign">
-                            <span class="check"></span>
-                          </span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="title">GDPR Compliance</p>
-                      <p class="text-muted">The GDPR is a regulation that requires businesses to protect the personal data and privacy of Europe citizens for transactions that occur within EU member states.</p>
                     </td>
                     <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                        <i class="tim-icons icon-pencil"></i>
-                      </button>
+                        <button type="submit" rel="tooltip" name="Delete_task" class="btn btn-link" data-original-title="Delete Crew"  >
+                          <a href="/delete?task={{ row.id }}"> <i class="fa fa-trash"> </i></a>
+                        </button>
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      <div class="form-check">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" value="">
-                          <span class="form-check-sign">
-                            <span class="check"></span>
-                          </span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="title">Solve the issues</p>
-                      <p class="text-muted">Fifty percent of all respondents said they would be more likely to shop at a company </p>
-                    </td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                        <i class="tim-icons icon-pencil"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-check">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" value="">
-                          <span class="form-check-sign">
-                            <span class="check"></span>
-                          </span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="title">Release v2.0.0</p>
-                      <p class="text-muted">Ra Ave SW, Seattle, WA 98116, SUA 11:19 AM</p>
-                    </td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                        <i class="tim-icons icon-pencil"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-check">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" value="">
-                          <span class="form-check-sign">
-                            <span class="check"></span>
-                          </span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="title">Export the processed files</p>
-                      <p class="text-muted">The report also shows that consumers will not easily forgive a company once a breach exposing their personal data occurs. </p>
-                    </td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                        <i class="tim-icons icon-pencil"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-check">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" value="">
-                          <span class="form-check-sign">
-                            <span class="check"></span>
-                          </span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="title">Arival at export process</p>
-                      <p class="text-muted">Capitol Hill, Seattle, WA 12:34 AM</p>
-                    </td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                        <i class="tim-icons icon-pencil"></i>
-                      </button>
-                    </td>
-                  </tr>
+                  {% endfor %}
+
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
+
       <div class="col-lg-6 col-md-12">
         <div class="card ">
           <div class="card-header">
@@ -308,6 +232,19 @@
       demo.initDashboardPageCharts( {{ lastweek }}, {{lastdays}} , {{ total }} , {{resolved}}  );
 
     });
+
+
+    function Openform()
+    {
+        if ( document.getElementById('form1').style.display == '' ) {
+            document.getElementById("form1").style.display = "none";
+        }
+        else {
+            document.getElementById('form1').style.display = '';
+        }
+
+
+    }
   </script>
 
 {% endblock javascripts %}

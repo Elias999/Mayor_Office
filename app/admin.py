@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from .models import complain, infrastructure, crew , personel
+from .models import complain, infrastructure, crew , personel , task
 
 class complainAdminForm(forms.ModelForm):
 
@@ -16,6 +16,18 @@ class complainAdmin(admin.ModelAdmin):
 
 admin.site.register(complain, complainAdmin)
 
+class taskAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = task
+        fields = '__all__'
+
+class taskAdmin(admin.ModelAdmin):
+    form = taskAdminForm
+    list_display = ['title','text' ,  'done']
+    readonly_fields = []
+
+admin.site.register(task , )
 
 class infrastructureAdminForm(forms.ModelForm):
 

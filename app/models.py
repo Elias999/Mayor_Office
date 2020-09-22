@@ -114,3 +114,22 @@ class personel(models.Model):
 
     def get_update_url(self):
         return reverse('app_personel_update', args=(self.slug,))
+
+class task(models.Model):
+
+    # Fields
+    title = models.CharField(max_length=20)
+    text = models.TextField(max_length=200)
+    done = models.BooleanField(default='False')
+
+
+    class Meta:
+        ordering = ('-done',)
+
+
+    def get_absolute_url(self):
+        return reverse('app_task_title', args=(self.slug,))
+
+
+    def get_update_url(self):
+        return reverse('app_task_title', args=(self.slug,))

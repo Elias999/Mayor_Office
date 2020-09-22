@@ -48,3 +48,27 @@ class NewCrew(forms.Form):
     class Meta:
         model = crew
         fields = ['name', 'working_hours', 'crew_members' , 'complains_id']
+
+
+class NewTask(forms.Form):
+    title = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "placeholder" : "Title",
+                "class": "form-control",
+                'maxlength': '20'
+
+            }
+        ))
+    text = forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                "placeholder" : "Text",
+                "class": "form-control",
+                'maxlength': '200'
+                }
+    ))
+
+    class Meta:
+        model = crew
+        fields = ['name', 'working_hours', 'crew_members' , 'complains_id']

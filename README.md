@@ -24,17 +24,17 @@
 # Mayor_Office
 
 # [TODO list]
-- [-] Enable editing and Delete crews
+- [x] Delete crews
 - [ ] Enable editing
 - [ ] Statics
-- [-] Populate index.html not all
+- [x] Populate index.html not all
 - [ ] Map
-- [ ] Notes on index
+- [x] Notes on index
 - [ ] Notifications ??
 - [ ] Add Costs ideas?
 -----
-- [ ] Andoid connection
-- [ ] Andoid requests
+- [x] Andoid connection
+- [x] Andoid requests
 - [ ] Andoid respond with json
 - [ ] Andoid login crew
 - [ ] Andoid send complains

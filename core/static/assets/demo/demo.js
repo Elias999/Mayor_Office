@@ -446,7 +446,7 @@ demo = {
     var data = {
       labels: lastdays,
       datasets: [{
-        label: "Unresolved",
+        label: "Resolved",
         fill: true,
         backgroundColor: gradientStroke,
         borderColor: '#00d6b4',
@@ -566,8 +566,12 @@ demo = {
 
   },
 
-  initGoogleMaps: function() {
-    var myLatlng = new google.maps.LatLng(37.963614,23.515375);
+  initGoogleMaps: function( infArray ) {
+
+
+
+    var myLatlng = new google.maps.LatLng(37.941384,23.6525531);
+
     var mapOptions = {
       zoom: 13,
       center: myLatlng,
@@ -760,24 +764,26 @@ demo = {
         }
       ]
     };
-
+// To add the marker to the map, call setMap();
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
     var marker = new google.maps.Marker({
       position: myLatlng,
-      title: "Hello World!"
+      title: "Base"
     });
 
-    var home = new google.maps.LatLng(37.964215,23.490986);
-    var marker1 = new google.maps.Marker({
-      position: home,
-      title: "Hello Home!"
-    });
-
-
-    // To add the marker to the map, call setMap();
     marker.setMap(map);
-    marker1.setMap(map);
+
+    for(i = 0; i < infArray.length; i++) {
+      cords = JSON.stringify(infArray[i].fields.google_location)
+      var cordsArr = cords.split(',');
+      var home = new google.maps.LatLng(cordsArr[0].substring(1) , cordsArr[1].slice(0, -1));
+      var marker1 = new google.maps.Marker({
+        position: home,
+        title: infArray[i].fields.type +":"+ infArray[i].pk
+      });
+      marker1.setMap(map);
+    }
   },
 
   showNotification: function(from, align) {

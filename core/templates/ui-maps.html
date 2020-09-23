@@ -20,6 +20,51 @@
   </div>
 </div>
 
+<div class="col-lg-6 col-md-12">
+  <div class="card ">
+    <div class="card-header">
+      <h4 class="card-title"> Infrastructure</h4>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table tablesorter " id="">
+          <thead class=" text-primary">
+            <tr>
+              <th>
+                ID
+              </th>
+
+              <th class="text-left">
+                GeoLocation
+              </th>
+              <th class="text-center">
+                Type
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for row in infrastructure_table %}
+            <tr>
+              <td>
+              {{  row.UUID}}
+              </td>
+              <td class="text-left">
+                {{row.google_location}}
+              </td>
+              <td>
+                {{  row.type}}
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
@@ -35,7 +80,9 @@
 <script>
   $(document).ready(function() {
     // Javascript method's body can be found in assets/js/demos.js
-    demo.initGoogleMaps();
+  var infArray = {{ infrastructure | safe }}
+
+  demo.initGoogleMaps(infArray);
   });
 </script>
 

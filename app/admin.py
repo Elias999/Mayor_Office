@@ -40,6 +40,7 @@ class infrastructureAdmin(admin.ModelAdmin):
     form = infrastructureAdminForm
     list_display = ['UUID', 'created', 'last_updated', 'google_location', 'type']
     readonly_fields = ['UUID', 'created', 'last_updated']
+    search_fields = ('UUID', 'type' )
 
 admin.site.register(infrastructure, infrastructureAdmin)
 

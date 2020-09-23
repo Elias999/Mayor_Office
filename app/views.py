@@ -11,8 +11,10 @@ from django.template import loader
 from django.http import HttpResponse
 from django import template
 from app import Populate
-from app.models import personel , complain , crew , task
+from app.models import personel , complain , crew , task , infrastructure
 from .forms import NewCrew , NewTask
+from django.core import serializers
+
 
 @login_required(login_url="/login/")
 def index(request):
@@ -34,12 +36,14 @@ def index(request):
     # data send it
     lastweekdays = populating.lastweek().get('days')
     lastweek = populating.lastweek().get('count')
+    sumlastweek = populating.lastweek().get('sum')
     total = populating.count_incid()
     resolved = populating.lastweek_resolved().get('count')
+    sumresolved = populating.lastweek_resolved().get('sum')
     un_complain_table = complain.objects.filter(resolved=False)
     task_table = task.objects.all()
 
-    context = {"lastweek" : lastweek , "lastdays" : lastweekdays , "total" : total, "resolved" : resolved , "unresolved" : un_complain_table , "task_table" : task_table , "NewTask" : taskform}
+    context = {"lastweek" : lastweek , "lastdays" : lastweekdays , "total" : total, "resolved" : resolved , "unresolved" : un_complain_table , "task_table" : task_table , "NewTask" : taskform , "sumlastweek" : sumlastweek , "sumresolved" : sumresolved}
     return render(request, "index.html" ,context)
 
 @login_required(login_url="/login/")
@@ -67,17 +71,22 @@ def pages(request):
         else:
             msgproblem = 'No new crew'
     try:
-
         load_template = request.path.split('/')[-1]
         html_template = loader.get_template( load_template )
         if "ui-tables.html" in request.path:
             crew_table = crew.objects.all()
             personel_table = personel.objects.all()
             context = { "table" : personel_table , "crewtable" : crew_table }
-        if "crew_add.html" in request.path:
+        elif "crew_add.html" in request.path:
             complain_table = complain.objects.filter(resolved=False)
             personel_table = personel.objects.all()
             context = { "comptable" : complain_table , "crewform" : crewform ,"msgproblem" : msgproblem, "pertable" : personel_table }
+        elif "ui-maps.html" in request.path:
+            infrastructure_table = infrastructure.objects.all()
+            data = serializers.serialize("json", infrastructure_table , ensure_ascii=False , fields=('google_location','type' ) )
+            context = { "infrastructure" : data , "infrastructure_table" : infrastructure_table }
+
+
         return HttpResponse(html_template.render(context, request))
 
     except template.TemplateDoesNotExist:
@@ -85,10 +94,10 @@ def pages(request):
         html_template = loader.get_template( 'error-404.html' )
         return HttpResponse(html_template.render(context, request))
 
-    except:
+    except Exception as e:
 
         html_template = loader.get_template( 'error-500.html' )
-        return HttpResponse(html_template.render(context, request))
+        return HttpResponse(e)
 
 def forms(request):
     try:

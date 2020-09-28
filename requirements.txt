@@ -12,3 +12,4 @@ whitenoise
 django_extensions
 django.db
 django-autoslug
+numpy

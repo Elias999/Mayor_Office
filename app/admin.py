@@ -12,7 +12,7 @@ class complainAdminForm(forms.ModelForm):
 class complainAdmin(admin.ModelAdmin):
     form = complainAdminForm
     list_display = ['slug','slug_ref' ,  'made_afm', 'created', 'resolved', 'infrastructure_id', 'notes', 'resolve_date']
-    readonly_fields = ['slug', 'made_afm', 'created',  ]
+    readonly_fields = ['slug', 'created',  ]
 
 admin.site.register(complain, complainAdmin)
 

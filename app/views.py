@@ -16,6 +16,7 @@ from .forms import NewCrew , NewTask
 from django.core import serializers
 import math
 from numpy import linalg
+
 #from app.Populate import *
 
 
@@ -206,7 +207,7 @@ def smartPath():
     for k in range(counter):
         answer = float(10000000000000000000000.0)
         for coords in google_locations:
-            if([startX, startY] not in done):
+            if([coords[0], coords[1]] not in done):
                 x = math.pow(startX + float(coords[0]) , 2)
                 y = math.pow(startY + float(coords[1]) , 2)
                 final = math.pow(x+y , 0.5)
@@ -214,6 +215,7 @@ def smartPath():
                     answer = final
                     answerX, answerY = coords[0], coords[1]
         done.append([startX, startY])
+        google_locations.remove([answerX, answerY])
         startX, startY = float(answerX), float(answerY)
     done.append([startX, startY])
     bigString = ''
@@ -221,6 +223,7 @@ def smartPath():
     for coords in done:
         if firstTime:
             bigString += "You are at " + str(coords) + "\n"
+            firstTime = False
         else:
             bigString += "Stop No " + str(i) + " at " + str(coords) + "\n"
             i += 1
@@ -231,16 +234,22 @@ def smartPath():
 
 
 
-
-
-
-
 def givePreviousComplains(userAFM):
     userComplains = complain.objects.all().filter(made_afm = userAFM)
     answer = ""
+    complainResolved= ''
+    counter = 0
     for entry in userComplains:
-        answer += "Complain No " + str(entry.slug) + "\nMade in " + str(entry.created) + "\nNoted:  " + str(entry.notes) + "\n\n"
-    return str(answer)
+        counter += 1
+        if entry.resolved == True:
+            complainResolved = 'Yes'
+        else:
+            complainResolved = 'False'
+        answer += "Complain No " + str(entry.slug) + "\nMade in " + str(entry.created) + "\nNoted:  " + str(entry.notes) + "\nResolved:  " + complainResolved + "\n\n"
+    if counter > 0:
+        return str(answer)
+    else:
+        return "No complains found with given AFM!"
 
 def returnOptions():
     toreturn = infrastructure.objects.all()
